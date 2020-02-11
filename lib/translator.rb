@@ -20,7 +20,7 @@ def get_japanese_emoticon(path, emoticon)
   end
 end
 
-def get_english_meaning(*ath, emoticon)
+def get_english_meaning(path, emoticon)
   file = load_library(path)
   if !file['get_meaning'][emoticon]
     p 'Sorry, that emoticon was not found'
