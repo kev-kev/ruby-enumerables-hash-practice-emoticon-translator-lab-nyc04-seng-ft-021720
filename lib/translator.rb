@@ -2,23 +2,29 @@ require 'yaml'
 require 'pp'
 
 def load_library(path)
-  pp YAML.load_file(path)
+  file = YAML.load_file(path)
   result = {'get_meaning' => {}, 'get_emoticon' => {}}
-  path.each{ |meaning, emoticon_arr|
-    result['get_meaning'] = meaning
-    result['get_emoticon'] = emoticon_arr[1]
+  file.each{ |meaning, emoticon_arr|
+    result['get_meaning'][emoticon_arr[1]] = meaning
+    result['get_emoticon'][emoticon_arr[0]] = emoticon_arr[1]
   }
   result
 end
 
-def get_japanese_emoticon(western_emoticon)
-  load_library.each{ |meaning, arr|
-    if arr[0] == western_emoticon
-      return arr[1]
-    end
-  }
+def get_japanese_emoticon(path, emoticon)
+  file = load_library(path)
+  if !file['get_emoticon'][emoticon]
+    p 'Sorry, that emoticon was not found'
+  else
+    return file['get_emoticon'][emoticon]
+  end
 end
 
-def get_english_meaning(japanese_emoticon)
-  # code goes here
+def get_english_meaning(*ath, emoticon)
+  file = load_library(path)
+  if !file['get_meaning'][emoticon]
+    p 'Sorry, that emoticon was not found'
+  else
+    return file['get_meaning'][emoticon]
+  end
 end
